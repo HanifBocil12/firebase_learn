@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "90033109577",
+    "project_id": "xampap-646a6",
+    "storage_bucket": "xampap-646a6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:90033109577:android:f4db1939479a23eb771d98",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "90033109577-t2fvf3lvoeh2nq2m7f3talu9qr43bq3n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "858f943bf812994a2a0e5fec2e24eb9e95dab2a1"
+          }
+        },
+        {
+          "client_id": "90033109577-rur7nb4glvp8dvhrt1g6sq5aua5ptf2v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR7E2AmHqbvO2gu_oWz5wPh_vWkPooo8w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "90033109577-rur7nb4glvp8dvhrt1g6sq5aua5ptf2v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
