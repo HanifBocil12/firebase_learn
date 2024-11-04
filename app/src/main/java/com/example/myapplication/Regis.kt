@@ -78,18 +78,22 @@ class Regis : AppCompatActivity() {
         mAuth.createUserWithEmailAndPassword(etGmail.text.toString(),etPas.text.toString())
             .addOnCompleteListener { task ->
                 if (task.isSuccessful){
-                    val userUpdate = userProfileChangeRequest {
-                        displayName = etName.text.toString()
-                    }
-                    val user = task.result.user
-                    user!!.updateProfile(userUpdate)
-                        .addOnCompleteListener {
-                            startActivity(Intent(this, MainActivity::class.java))
-                        }
+                    mAuth.currentUser?.sendEmailVerification()?.addOnCompleteListener {
+                        if(task.isSuccessful){
+                            val userUpdate = userProfileChangeRequest {
+                                displayName = etName.text.toString()
+                            }
+                            val user = task.result.user
+                            user!!.updateProfile(userUpdate)
+                                .addOnCompleteListener {
+                                    startActivity(Intent(this, MainActivity::class.java))
+                                }
 
-                        .addOnFailureListener { error2 ->
-                            Toast.makeText(this, error2.localizedMessage, Toast.LENGTH_SHORT).show()
+                                .addOnFailureListener { error2 ->
+                                    Toast.makeText(this, error2.localizedMessage, Toast.LENGTH_SHORT).show()
+                                }
                         }
+                    }
                 }
             }
             .addOnFailureListener { error ->
