@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
 class UserAdapter(
     val context: Context,
@@ -29,10 +28,18 @@ class UserAdapter(
     }
 
     override fun onBindViewHolder(holder: UserView, position: Int) {
-        holder.titleTextView.setText()
-        holder.timeTextView.setText()
-        holder.itemView.setOnClickListener { view ->
-            onItemClickListener.onItemClick()
+        holder.titleTextView.setText(arrayList[position].title)
+        holder.timeTextView.setText(arrayList[position].time)
+        holder.itemView.setOnClickListener {
+            onItemClickListener.onClick(arrayList[position])
         }
+    }
+
+    fun setOnItemClickListener(onItemClickListener: com.example.firestorecrud.UserAdapter.OnItemClickListener?) {
+        this.onItemClickListener = onItemClickListener
+    }
+
+    interface OnItemClickListener {
+        fun onClick(user: User?)
     }
 }

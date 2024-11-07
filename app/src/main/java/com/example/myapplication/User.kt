@@ -1,5 +1,6 @@
 package com.example.myapplication
 
 data class User (
-    val idi:String
+    var title:String,
+    var time:String
 )
