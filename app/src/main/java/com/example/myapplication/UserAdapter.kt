@@ -9,10 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class UserAdapter(
-    val context: Context,
-    var arrayList: List<User>,
-    val onItemClickListener: OnItemClickListener
+    var context: Context,
+    var arrayList: List<User>
 ) : RecyclerView.Adapter<UserAdapter.UserView>() {
+    var onItemClickListener: OnItemClickListener? = null
+
     inner class UserView(itemview: View) : RecyclerView.ViewHolder(itemview){
         val titleTextView: TextView = itemView.findViewById(R.id.tv_title)
         val timeTextView: TextView = itemView.findViewById(R.id.tv_time)
@@ -31,15 +32,15 @@ class UserAdapter(
         holder.titleTextView.setText(arrayList[position].title)
         holder.timeTextView.setText(arrayList[position].time)
         holder.itemView.setOnClickListener {
-            onItemClickListener.onClick(arrayList[position])
+            onItemClickListener!!.onClick(arrayList[position])
         }
     }
 
-    fun setOnItemClickListener(onItemClickListener: com.example.firestorecrud.UserAdapter.OnItemClickListener?) {
+    fun setOnItemClickListenerManually(onItemClickListener: OnItemClickListener) {
         this.onItemClickListener = onItemClickListener
     }
 
-    interface OnItemClickListener {
+    public interface OnItemClickListener {
         fun onClick(user: User?)
     }
 }
