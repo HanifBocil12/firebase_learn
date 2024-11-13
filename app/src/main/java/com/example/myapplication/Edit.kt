@@ -20,6 +20,6 @@ class Edit : AppCompatActivity() {
         }
 
         val db = FirebaseFirestore.getInstance();
-        findViewById<TextView>(R.id.tv_title).setText(App.user!!.title)
+        findViewById<TextView>(R.id.tv_edit).setText(App.user!!.users)
     }
 }

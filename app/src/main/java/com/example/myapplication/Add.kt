@@ -13,11 +13,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Objects
 
 class Add : AppCompatActivity() {
+    private var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     var db: FirebaseFirestore = FirebaseFirestore.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,10 @@ class Add : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val userId = mAuth.uid
+
+        val userDocRef = db.collection("Users").document(userId!!)
+        val userCollectionRef = userDocRef.collection("dataUser")
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar) // Set toolbar as ActionBar
     }
@@ -47,7 +53,11 @@ class Add : AppCompatActivity() {
                 val user: MutableMap<String, Any> = HashMap()
                 user["users"] = Objects.requireNonNull<Editable>(findViewById<EditText>(R.id.et_Judul).text).toString()
 
-                db.collection("Users").add(user)
+                val userId = mAuth.uid
+
+                val userDocRef = db.collection("Users").document(userId!!)
+                val userCollectionRef = userDocRef.collection("dataUser")
+                userCollectionRef.add(user)
                     .addOnSuccessListener(object : OnSuccessListener<DocumentReference?> {
                         override fun onSuccess(documentReference: DocumentReference?) {
                             Toast.makeText(

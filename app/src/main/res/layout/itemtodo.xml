@@ -8,7 +8,7 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_tite"
         android:layout_width="309dp"
         android:layout_height="21dp"
         android:layout_marginStart="40dp"
@@ -31,6 +31,6 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+        app:layout_constraintStart_toEndOf="@+id/tv_tite"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tite" />
 </androidx.constraintlayout.widget.ConstraintLayout>
