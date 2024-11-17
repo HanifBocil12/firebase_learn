@@ -6,4 +6,8 @@
         android:title="Search"
         android:icon="@drawable/baseline_search_24"
         app:showAsAction="always"/>
+    <item android:id="@+id/itMenu"
+        android:title="Search"
+        android:icon="@drawable/baseline_search_24"
+        app:showAsAction="always"/>
 </menu>
