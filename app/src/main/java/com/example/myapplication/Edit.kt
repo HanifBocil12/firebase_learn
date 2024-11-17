@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Edit : AppCompatActivity() {
@@ -20,6 +21,10 @@ class Edit : AppCompatActivity() {
         }
 
         val db = FirebaseFirestore.getInstance();
-        findViewById<TextView>(R.id.tv_edit).setText(App.user!!.users)
+        var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+
+        val userDocRef = db.collection("Users").document(mAuth.uid!!)
+        val userCollectionRef = userDocRef.collection("dataUser")
+        findViewById<TextView>(R.id.tv_edit).setText(App.user!!.users.toString())
     }
 }

@@ -19,8 +19,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Objects
 
 class Add : AppCompatActivity() {
-    private var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     var db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

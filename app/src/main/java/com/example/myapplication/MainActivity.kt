@@ -2,10 +2,12 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.widget.AdapterView
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -22,6 +24,53 @@ import java.util.Objects
 
 class MainActivity : AppCompatActivity() {
     private var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    override fun onStart() {
+        super.onStart()
+
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        val db = FirebaseFirestore.getInstance()
+        val userId = mAuth.uid
+
+        val userDocRef = db.collection("Users").document(userId!!)
+        val userCollectionRef = userDocRef.collection("dataUser")
+
+        // Menggunakan addSnapshotListener untuk mendengarkan perubahan realtime pada Firestore
+        userCollectionRef.addSnapshotListener { snapshot, exception ->
+            if (exception != null) {
+                Toast.makeText(
+                    this@MainActivity,
+                    exception.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@addSnapshotListener
+            }
+
+            if (snapshot != null) {
+                val arrayList: ArrayList<User> = ArrayList<User>()
+
+                // Mengambil data yang ada di snapshot
+                for (document in snapshot.documents) {
+                    val user = document.toObject(User::class.java)
+                    user?.id = document.id
+                    arrayList.add(user!!)
+                }
+
+                // Set adapter dengan data terbaru
+                val adapter = UserAdapter(this@MainActivity, arrayList)
+                recyclerView.adapter = adapter
+
+                // Menetapkan onClick listener untuk item RecyclerView
+                adapter.setOnItemClickListenerManually(object : UserAdapter.OnItemClickListener {
+                    override fun onClick(user: User?) {
+                        App.user = user
+                        startActivity(
+                            Intent(this@MainActivity, Edit::class.java)
+                        )
+                    }
+                })
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +81,11 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         val db = FirebaseFirestore.getInstance()
         val add = findViewById<FloatingActionButton>(R.id.addUser)
-        val recyclerView= findViewById<RecyclerView>(R.id.recyclerView)
         val userId = mAuth.uid
+        val recyclerView= findViewById<RecyclerView>(R.id.recyclerView)
 
         val userDocRef = db.collection("Users").document(userId!!)
         val userCollectionRef = userDocRef.collection("dataUser")
@@ -106,40 +156,6 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 })
-
-            findViewById<Button>(R.id.reload).setOnClickListener {
-                userCollectionRef.get().addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val arrayList:ArrayList<User> = ArrayList<User>()
-                        for (document in task.result) {
-                            val user = document.toObject(User::class.java)
-                            user.id = document.id
-//                            findViewById<TextView>(R.id.nm).text = user.id.toString()
-                            arrayList.add(user)
-                        }
-                        val adapter = UserAdapter(this@MainActivity, arrayList)
-                        recyclerView.adapter = adapter
-
-                        adapter.setOnItemClickListenerManually(object : UserAdapter.OnItemClickListener {
-                            override fun onClick(user: User?) {
-                                App.user = user
-                                startActivity(
-                                    Intent(
-                                        this@MainActivity,
-                                        Edit::class.java
-                                    )
-                                )
-                            }
-                        })
-                    } else {
-                        Toast.makeText(
-                            this@MainActivity,
-                            Objects.requireNonNull(task.exception)!!.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            }
         }
         else{
             val intent = Intent(this, Login::class.java)
