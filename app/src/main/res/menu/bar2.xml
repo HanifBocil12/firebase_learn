@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/app_bar"
-        android:icon="@drawable/email"
-        android:iconTint="@color/black"
-        android:title="check"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="always" />
+    <item android:id="@+id/itSearch"
+        android:title="Search"
+        android:icon="@drawable/baseline_search_24"
+        app:showAsAction="always"/>
 </menu>
