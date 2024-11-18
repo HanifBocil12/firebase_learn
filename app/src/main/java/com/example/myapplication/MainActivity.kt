@@ -81,7 +81,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         val db = FirebaseFirestore.getInstance()
         val add = findViewById<FloatingActionButton>(R.id.addUser)
         val userId = mAuth.uid

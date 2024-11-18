@@ -19,7 +19,8 @@ class Edit : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        setSupportActionBar(findViewById(R.id.toolbar2));
+        getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true);
         val db = FirebaseFirestore.getInstance();
         var mAuth: FirebaseAuth = FirebaseAuth.getInstance()
 
